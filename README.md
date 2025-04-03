@@ -21,12 +21,11 @@ Empower your career with intelligent tools designed for success.
 
 ## Tech Stack
 
-**Frontend:** Next.js , React , Tailwindcss , Shadcn UI
+- **Frontend:** Next.js , React , Tailwindcss , Shadcn UI
 
-**Backend & Database:** NeonDb , Prisma , Node.js
+- **Backend & Database:** NeonDb , Prisma , Node.js
 
-
-**AI & User Authentication:** Gemini API , Clerk
+- **AI & User Authentication:** Gemini API , Clerk
 
 
 ## Deployment
