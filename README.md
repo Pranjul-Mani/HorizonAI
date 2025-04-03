@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 
 # HorizonAI-Success Through AI
 I have developed an AI-powered career advancement application designed to support you at every stage of your professional journey.
