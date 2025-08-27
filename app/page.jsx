@@ -95,16 +95,16 @@ export default function Home() {
             {testimonial.map((testimonial, index) => {
               return (
                 <Card key={index} className="bg-background">
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col space-y-4">
+                  <CardContent className="pt-4">
+                    <div className="flex flex-col space-y-6">
                       <div className="flex items-center space-x-4">
-                        <div className="relative h-12 w-12 flex-shrink-0">
+                        <div className="relative h-16 w-16 flex-shrink-0 aspect-square">
                           <Image
-                            width={40}
-                            height={40}
+                            width={64}
+                            height={64}
                             src={testimonial.image}
                             alt={testimonial.author}
-                            className="rounded-full object-cover border-2 border-primary/20"
+                            className="rounded-full object-cover border-2 border-primary/20 w-full h-full"
                           />
                         </div>
                         <div>
