@@ -5,7 +5,23 @@ import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Helper function to list available models
+async function getAvailableModels() {
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`
+    );
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.models || [];
+  } catch (error) {
+    console.error("Error fetching available models:", error);
+    return [];
+  }
+}
+
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 export async function generateQuiz() {
   const { userId } = await auth();
@@ -53,7 +69,28 @@ export async function generateQuiz() {
     return quiz.questions;
   } catch (error) {
     console.error("Error generating quiz:", error);
-    throw new Error("Failed to generate quiz questions");
+    console.error("Model being used:", "gemini-2.5-flash");
+    
+    // List available models to help debug
+    try {
+      const availableModels = await getAvailableModels();
+      const generateContentModels = availableModels.filter(
+        (m) =>
+          m.supportedGenerationMethods &&
+          m.supportedGenerationMethods.includes("generateContent")
+      );
+      
+      console.error("\n=== Available Models with generateContent support ===");
+      generateContentModels.forEach((m) => {
+        const modelName = m.name.replace("models/", "");
+        console.error(`- ${modelName} (${m.displayName || "N/A"})`);
+      });
+      console.error("====================================================\n");
+    } catch (listError) {
+      console.error("Could not list available models:", listError);
+    }
+    
+    throw new Error(`Failed to generate quiz questions: ${error.message}`);
   }
 }
 
